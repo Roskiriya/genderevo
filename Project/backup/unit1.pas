@@ -38,8 +38,10 @@ type
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
+    procedure DataSource1DataChange(Sender: TObject; Field: TField);
     procedure DBGrid2SelectEditor(Sender: TObject; Column: TColumn;
       var Editor: TWinControl);
+    procedure MySQL51Connection1AfterConnect(Sender: TObject);
   private
 
   public
@@ -90,14 +92,23 @@ begin
   except
    ShowMessage('SQL-запрос: ОШИБКА!');
    exit;
+   DBgrid2.columns[0].width:= 10;
+   DBgrid2.columns[1].width:=10;
+   DBgrid2.columns[2].width:= 10;
+   DBgrid2.columns[3].width:= 10;
  end;
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
 begin
-   SQLQuery1.Active:=false;
+     SQLQuery1.Active:=false;
   SQLTransaction1.Commit;
   MySQL51Connection1.Connected:=false;
+end;
+
+procedure TForm1.DataSource1DataChange(Sender: TObject; Field: TField);
+begin
+
 end;
 
 procedure TForm1.DBGrid2SelectEditor(Sender: TObject; Column: TColumn;
@@ -107,6 +118,11 @@ begin
   Edit2.Text := DBGrid2.Columns.Items[2].Field.Value;
   Edit3.Text := DBGrid2.Columns.Items[3].Field.Value;
   Edit4.Text := DBGrid2.Columns.Items[4].Field.Value;
+end;
+
+procedure TForm1.MySQL51Connection1AfterConnect(Sender: TObject);
+begin
+
 end;
 
 end.
